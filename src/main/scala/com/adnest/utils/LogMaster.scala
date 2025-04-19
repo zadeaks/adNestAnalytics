@@ -1,6 +1,6 @@
 package com.adnest.utils
 
-import com.sun.org.slf4j.internal.{Logger, LoggerFactory}
+import org.slf4j.{Logger, LoggerFactory}
 
 
 trait LogMaster {

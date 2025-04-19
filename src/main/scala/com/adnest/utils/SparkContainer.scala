@@ -5,20 +5,21 @@ import org.apache.spark.sql.SparkSession
 
 object SparkContainer extends LogMaster {
 
-  val spark : SparkSession = SparkSession.builder()
-    .appName("adNestAnalytics")
-    .master("local[*]")
-    .getOrCreate()
+  def initializeSparkSession(env: String): SparkSession = {
 
-  val sc: SparkContext = spark.sparkContext
+    val spark: SparkSession = SparkSession.builder()
+      .appName("adNestAnalytics")
+      .master("local[*]")
+      .getOrCreate()
 
-  logInfo(s"Spark Session for Application - ${sc.appName} with ID - ${sc.applicationId} is Created")
+    val sc: SparkContext = spark.sparkContext
 
-  sc.setLogLevel("INFO")
+    logInfo(s"Spark Session for Application - ${sc.appName} with ID - ${sc.applicationId} is Created")
 
-  spark.stop()
+    sc.setLogLevel("INFO")
 
-  logInfo(s"Spark Session for Application - ${sc.appName} with ID - ${sc.applicationId} is closed")
+    spark
 
+  }
 
 }
