@@ -8,7 +8,7 @@ import org.apache.spark.sql.SparkSession
 
 object adNestAnalyticsAgent extends LogMaster {
 
-  def run(advertisementAnalyticsBuilder: AdvertisementAnalyticsBuilder)(implicit spark: SparkSession) = {
+  def run(advertisementAnalyticsBuilder: AdvertisementAnalyticsBuilder)(implicit spark: SparkSession): Unit = {
 
     val x = advertisementAnalyticsBuilder.buildOt._1
     StorageHandler.storeAsParquet(x)
@@ -28,6 +28,8 @@ object adNestAnalyticsAgent extends LogMaster {
     val advertisementAnalyticsBuilder = AdvertisementAnalyticsBuilder(dataFrameLoader)
 
     run(advertisementAnalyticsBuilder)(spark)
+
+    spark.stop()
 
   }
 
