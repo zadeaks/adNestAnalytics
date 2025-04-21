@@ -10,11 +10,10 @@ object adNestAnalyticsAgent extends LogMaster {
 
   def run(advertisementAnalyticsBuilder: AdvertisementAnalyticsBuilder)(implicit spark: SparkSession): Unit = {
 
-    val x = advertisementAnalyticsBuilder.buildOt._1
-    StorageHandler.storeAsParquet(x)
-
-    val y = advertisementAnalyticsBuilder.buildOt._1
-    StorageHandler.storeAsParquet(y)
+    advertisementAnalyticsBuilder.clicksProcessedCounts.show(100,false)
+    advertisementAnalyticsBuilder.impressionsProcessedCounts.show(100,false)
+    advertisementAnalyticsBuilder.avgTimeBetweenEventsForClicks.show(100, false)
+    advertisementAnalyticsBuilder.avgTimeBetweenEventsForImpressions.show(100, false)
 
   }
 
