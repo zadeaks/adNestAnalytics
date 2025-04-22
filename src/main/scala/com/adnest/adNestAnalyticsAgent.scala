@@ -20,11 +20,16 @@ object adNestAnalyticsAgent extends LogMaster {
 
   def main(args: Array[String]): Unit = {
 
+    val userAgent: String = args
+      .find(_.startsWith("--user-agent="))
+      .map(_.split("=", 2)(1))
+      .getOrElse("some user agent")
+
     implicit val spark: SparkSession = SparkContainer.initializeSparkSession("dev")
 
     val dataFrameLoader = DataFrameLoader()(spark)
 
-    val advertisementAnalyticsBuilder = AdvertisementAnalyticsBuilder(dataFrameLoader)
+    val advertisementAnalyticsBuilder = AdvertisementAnalyticsBuilder(dataFrameLoader,userAgent)
 
     run(advertisementAnalyticsBuilder)(spark)
 
